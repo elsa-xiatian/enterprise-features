@@ -1,7 +1,9 @@
 package com.enterprise.controller;
 
+import com.enterprise.common.Result;
 import com.enterprise.model.dto.LoginRequest;
 import com.enterprise.model.dto.LoginResponse;
+import com.enterprise.model.dto.MfaVerifyRequest;
 import com.enterprise.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -25,6 +27,11 @@ public class AuthController {
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
         LoginResponse loginResponse = authService.login(loginRequest);
         return ResponseEntity.ok(loginResponse);
+    }
+
+    @PostMapping("/verify-mfa")
+    public Result<LoginResponse> verifyMfa(@RequestBody MfaVerifyRequest request){
+        return Result.success(authService.verifyMfa(request));
     }
 
 }

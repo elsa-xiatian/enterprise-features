@@ -2,6 +2,7 @@ package com.enterprise.service;
 
 import com.enterprise.model.dto.LoginRequest;
 import com.enterprise.model.dto.LoginResponse;
+import com.enterprise.model.dto.MfaVerifyRequest;
 
 public interface AuthService {
 
@@ -11,4 +12,6 @@ public interface AuthService {
      * @return 登录结果（包含令牌等信息）
      */
     LoginResponse login(LoginRequest loginRequest);
+
+    LoginResponse verifyMfa(MfaVerifyRequest request);
 }

@@ -36,6 +36,8 @@ public class User {
 
     private Integer status; // 状态：1-正常，0-禁用
 
+    private Integer mfaEnabled = 0;
+
     @CreationTimestamp
     private LocalDateTime createTime; // 创建时间
 
