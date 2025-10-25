@@ -38,6 +38,8 @@ public class User {
 
     private Integer mfaEnabled = 0;
 
+    private String role;
+
     @CreationTimestamp
     private LocalDateTime createTime; // 创建时间
 

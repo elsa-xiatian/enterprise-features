@@ -52,6 +52,21 @@ public class JwtTokenProvider {
                 .compact();
     }
 
+    public String getUsernameFromRefreshToken(String token) {
+        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+    }
+
+    public boolean validateRefreshToken(String token) {
+        try {
+            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
+            return true;
+        } catch (Exception e) {
+            // 日志记录无效原因（如过期、签名错误）
+            log.error("Refresh Token无效: {}", e.getMessage());
+            return false;
+        }
+    }
+
     // 从令牌中获取用户名
     public String getUsernameFromJWT(String token) {
         Claims claims = Jwts.parser()
@@ -97,5 +112,9 @@ public class JwtTokenProvider {
     // 获取令牌过期时间（秒）
     public long getExpirationInSeconds() {
         return jwtExpirationMs / 1000; // 转换为秒
+    }
+
+    public long getRefreshExpirationInSeconds() {
+        return refreshExpirationMs / 1000;
     }
 }

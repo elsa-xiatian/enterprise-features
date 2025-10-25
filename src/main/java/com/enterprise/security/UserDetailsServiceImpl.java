@@ -5,6 +5,7 @@ import com.enterprise.model.entity.User;
 import com.enterprise.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -33,11 +34,25 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new RuntimeException("用户已被禁用");
         }
 
+        GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole());
+
+        // 4. 构建UserDetails返回（包含角色信息）
+        return org.springframework.security.core.userdetails.User.builder()
+                .username(user.getUsername())
+                .password(user.getPassword()) // 数据库中加密后的密码
+                .authorities(authority) // 传入用户角色（权限）
+                .disabled(user.getStatus() != 1)
+                .accountExpired(false)
+                .accountLocked(false)
+                .credentialsExpired(false)
+                .build();
+
+
         // 3. 转换为Spring Security需要的UserDetails对象
-        org.springframework.security.core.userdetails.User user1 = new org.springframework.security.core.userdetails.User(user.getUsername(),
+        /*org.springframework.security.core.userdetails.User user1 = new org.springframework.security.core.userdetails.User(user.getUsername(),
                 user.getPassword(),user.getStatus() == 1,true,true,true,
                 Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")));
-        return user1;
+        return user1;*/
     }
 
 }

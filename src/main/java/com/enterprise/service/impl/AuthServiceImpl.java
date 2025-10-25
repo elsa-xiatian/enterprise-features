@@ -9,6 +9,7 @@ import com.enterprise.repository.UserRepository;
 import com.enterprise.security.JwtTokenProvider;
 import com.enterprise.security.UserDetailsServiceImpl;
 import com.enterprise.service.AuthService;
+import com.enterprise.service.RefreshTokenService;
 import com.enterprise.service.SmsCodeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -32,6 +33,8 @@ public class AuthServiceImpl implements AuthService {
     private final JwtTokenProvider jwtTokenProvider;
 
     private final SmsCodeService smsCodeService;
+    //新增：注入RefreshtokenService
+    private final RefreshTokenService refreshTokenService;
     // 新增：注入RedisTemplate
     private final RedisTemplate<String, String> redisTemplate;
 
@@ -45,6 +48,8 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public LoginResponse login(LoginRequest loginRequest) {
+
+
         // 1. 进行身份认证
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -56,7 +61,7 @@ public class AuthServiceImpl implements AuthService {
         User user = userRepository.findByUsername(loginRequest.getUsername())
                 .orElseThrow(() -> new RuntimeException("用户不存在"));
 
-        if (user.getMfaEnabled() == 1) {
+        if (user.getMfaEnabled() != null && user.getMfaEnabled() == 1) {
             // 3. 生成MFA临时令牌（UUID）
             String mfaToken = UUID.randomUUID().toString();
             // 构建Redis的key（格式：mfa:token:f47ac10b-58cc-4372-a567-0e02b2c3d479）
@@ -80,6 +85,8 @@ public class AuthServiceImpl implements AuthService {
             String token = jwtTokenProvider.generateToken(authentication);
             String refreshToken = jwtTokenProvider.generateRefreshToken(authentication);
 
+            refreshTokenService.saveRefreshToken(refreshToken,user.getUsername());
+
             return LoginResponse.builder()
                     .loginStatus(LoginStatusEnum.SUCCESS.getCode())
                     .token(token)
@@ -93,6 +100,7 @@ public class AuthServiceImpl implements AuthService {
     // 二次验证接口（修改临时令牌的获取逻辑）
     @Override
     public LoginResponse verifyMfa(MfaVerifyRequest request) {
+
         // 1. 从Redis获取临时令牌对应的用户名
         String redisKey = MFA_TOKEN_KEY_PREFIX + request.getMfaToken();
         String username = redisTemplate.opsForValue().get(redisKey);
@@ -123,6 +131,8 @@ public class AuthServiceImpl implements AuthService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtTokenProvider.generateToken(authentication);
         String refreshToken = jwtTokenProvider.generateRefreshToken(authentication);
+
+        refreshTokenService.saveRefreshToken(refreshToken,user.getUsername());
 
         // 5. 验证通过后，删除Redis中的临时令牌
         redisTemplate.delete(redisKey);

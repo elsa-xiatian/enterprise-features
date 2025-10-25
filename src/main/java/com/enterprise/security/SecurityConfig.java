@@ -52,8 +52,17 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/login","/api/auth/verify-mfa", "/api/test/**").permitAll()
+                        // 1. 公开接口：所有人可访问
+                        .requestMatchers("/api/auth/login", "/api/auth/verify-mfa", "/api/auth/refresh-token").permitAll()
                         .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+
+                        // 2. 管理员接口：仅ROLE_ADMIN角色可访问
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN") // hasRole会自动拼接"ROLE_"，等价于hasAuthority("ROLE_ADMIN")
+
+                        // 3. 普通用户接口：仅ROLE_USER角色可访问（或ROLE_ADMIN也可访问，用hasAnyRole）
+                        .requestMatchers("/api/user/**").hasAnyRole("USER", "ADMIN") // hasAnyRole支持多个角色
+
+                        // 4. 其他所有接口：需登录（无论角色）
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider()); // 注册认证提供者

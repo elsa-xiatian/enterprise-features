@@ -15,4 +15,6 @@ public class LoginResponse {
     private int loginStatus; // 登录状态（200-成功，201-需要二次验证）
     private String mfaToken; // 临时令牌（用于二次验证时标识用户）
 
+    private long refreshExpiresIn; // 新增：Refresh Token过期时间（秒）
+
 }
