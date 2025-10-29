@@ -38,7 +38,7 @@ public class User {
 
     private Integer mfaEnabled = 0;
 
-    private String role;
+    private String role; //新增字段，控制权限
 
     @CreationTimestamp
     private LocalDateTime createTime; // 创建时间
