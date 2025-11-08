@@ -6,6 +6,7 @@ import com.enterprise.model.dto.UserInfoResponse;
 import com.enterprise.model.dto.UserUpdateRequest;
 import com.enterprise.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,7 @@ public class UserController {
 
     private final UserService userService;
 
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @GetMapping("/info")
     public Result<?> getUserInfo(Authentication authentication) {
         // 从Authentication中获取当前登录用户信息（包含角色）

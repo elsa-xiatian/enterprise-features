@@ -7,6 +7,7 @@ import com.enterprise.repository.UserRepository;
 import com.enterprise.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,11 +20,18 @@ import java.util.Collection;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
+    // 新增：判断当前登录用户是否是目标用户（资源所有者）
+    public boolean isOwner(String targetUsername, Authentication authentication) {
+        String currentUsername = authentication.getName();
+        return currentUsername.equals(targetUsername);
+    }
+
     /**
      * 查询用户信息（资源权限控制核心逻辑）
      */
     @Override
     public UserInfoResponse getUserInfoByUsername(String targetUsername) {
+
         // 1. 获取当前登录用户信息（从SecurityContext中）
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = authentication.getName(); // 当前登录用户的username
@@ -56,8 +64,11 @@ public class UserServiceImpl implements UserService {
     /**
      * 修改用户信息（资源权限控制核心逻辑）
      */
+    @PreAuthorize("hasRole('ADMIN') || @userService.isOwner(#request.username, authentication)")
     @Override
     public void updateUserInfo(UserUpdateRequest request) {
+
+
         // 1. 获取当前登录用户信息
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = authentication.getName();

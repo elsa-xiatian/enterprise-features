@@ -4,6 +4,7 @@ import com.enterprise.common.Result;
 import com.enterprise.model.entity.User;
 import com.enterprise.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,7 @@ public class AdminController {
     private final UserRepository userRepository;
 
     // 管理员接口：仅ROLE_ADMIN可访问
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/user-list")
     public Result<?> getUserList() {
         // 管理员权限：查询所有用户（普通用户无此权限）
