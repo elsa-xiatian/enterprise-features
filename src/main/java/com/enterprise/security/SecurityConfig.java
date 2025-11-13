@@ -1,5 +1,7 @@
 package com.enterprise.security;
 
+
+import com.enterprise.manager.DynamicAuthorizationManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -24,6 +26,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final UserDetailsService userDetailsService; // 注入UserDetailsService
+
+    private final DynamicAuthorizationManager dynamicAuthorizationManager;
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
@@ -52,22 +56,18 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        // 1. 公开接口：所有人可访问
+                        // 1. 公开接口：无需登录（硬编码配置，全局通用规则）
                         .requestMatchers("/api/auth/login", "/api/auth/verify-mfa", "/api/auth/refresh-token").permitAll()
                         .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-
-                        // 2. 管理员接口：仅ROLE_ADMIN角色可访问
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN") // hasRole会自动拼接"ROLE_"，等价于hasAuthority("ROLE_ADMIN")
-
-                        // 3. 普通用户接口：仅ROLE_USER角色可访问（或ROLE_ADMIN也可访问，用hasAnyRole）
-                        .requestMatchers("/api/user/**").hasAnyRole("USER", "ADMIN") // hasAnyRole支持多个角色
-
-                        // 4. 其他所有接口：需登录（无论角色）
-                        .anyRequest().authenticated()
+                        // 2. 其他所有接口：交给动态权限校验器处理（不再硬编码角色规则）
+                        .anyRequest().access(dynamicAuthorizationManager)
                 )
-                .authenticationProvider(authenticationProvider()); // 注册认证提供者
+                // 注册认证提供者
+                .authenticationProvider(authenticationProvider())
 
-        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                // JWT过滤器
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
 
