@@ -125,3 +125,103 @@ java.lang.IllegalArgumentException: Invalid value type for attribute 'factoryBea
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1331) ~[spring-boot-3.2.0.jar:3.2.0]
 	at com.enterprise.JavaCommonFeaturesApplication.main(JavaCommonFeaturesApplication.java:16) ~[classes/:na]
 
+2025-11-13T10:36:01.716+08:00  INFO 24772 --- [java-common-features] [main] c.e.JavaCommonFeaturesApplication        : Starting JavaCommonFeaturesApplication using Java 17.0.6 with PID 24772 (E:\java-enterprise-features\target\classes started by 86132 in E:\java-enterprise-features)
+2025-11-13T10:36:01.718+08:00 DEBUG 24772 --- [java-common-features] [main] c.e.JavaCommonFeaturesApplication        : Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-11-13T10:36:01.718+08:00  INFO 24772 --- [java-common-features] [main] c.e.JavaCommonFeaturesApplication        : The following 1 profile is active: "dev"
+2025-11-13T10:36:02.333+08:00  INFO 24772 --- [java-common-features] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-11-13T10:36:02.333+08:00  INFO 24772 --- [java-common-features] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-11-13T10:36:02.541+08:00  INFO 24772 --- [java-common-features] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 202 ms. Found 4 JPA repository interfaces.
+2025-11-13T10:36:02.849+08:00  INFO 24772 --- [java-common-features] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-11-13T10:36:02.850+08:00  INFO 24772 --- [java-common-features] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-11-13T10:36:02.870+08:00  INFO 24772 --- [java-common-features] [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.enterprise.repository.ResourceRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-11-13T10:36:02.870+08:00  INFO 24772 --- [java-common-features] [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.enterprise.repository.ResourceRoleRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-11-13T10:36:02.871+08:00  INFO 24772 --- [java-common-features] [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.enterprise.repository.RoleRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-11-13T10:36:02.871+08:00  INFO 24772 --- [java-common-features] [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.enterprise.repository.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-11-13T10:36:02.871+08:00  INFO 24772 --- [java-common-features] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 13 ms. Found 0 Redis repository interfaces.
+2025-11-13T10:36:03.612+08:00  INFO 24772 --- [java-common-features] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-11-13T10:36:03.622+08:00  INFO 24772 --- [java-common-features] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-11-13T10:36:03.622+08:00  INFO 24772 --- [java-common-features] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-11-13T10:36:03.695+08:00  INFO 24772 --- [java-common-features] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-11-13T10:36:03.696+08:00  INFO 24772 --- [java-common-features] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1938 ms
+2025-11-13T10:36:03.889+08:00  INFO 24772 --- [java-common-features] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-11-13T10:36:04.019+08:00  INFO 24772 --- [java-common-features] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@19f1be04
+2025-11-13T10:36:04.021+08:00  INFO 24772 --- [java-common-features] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-11-13T10:36:04.130+08:00  INFO 24772 --- [java-common-features] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-13T10:36:04.191+08:00  INFO 24772 --- [java-common-features] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.3.1.Final
+2025-11-13T10:36:04.226+08:00  INFO 24772 --- [java-common-features] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-11-13T10:36:04.445+08:00  INFO 24772 --- [java-common-features] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-11-13T10:36:04.510+08:00  WARN 24772 --- [java-common-features] [main] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-13T10:36:05.252+08:00  INFO 24772 --- [java-common-features] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-13T10:36:05.293+08:00  INFO 24772 --- [java-common-features] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-11-13T10:36:05.668+08:00 DEBUG 24772 --- [java-common-features] [main] c.e.security.JwtAuthenticationFilter     : Filter 'jwtAuthenticationFilter' configured for use
+2025-11-13T10:36:05.727+08:00  INFO 24772 --- [java-common-features] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-11-13T10:36:06.154+08:00  INFO 24772 --- [java-common-features] [main] c.e.service.ResourceRoleService          : 动态权限规则加载完成，共加载 4 个接口规则
+2025-11-13T10:36:06.320+08:00  INFO 24772 --- [java-common-features] [main] org.redisson.Version                     : Redisson 3.23.3
+2025-11-13T10:36:06.665+08:00  INFO 24772 --- [java-common-features] [redisson-netty-2-5] o.r.c.pool.MasterPubSubConnectionPool    : 1 connections initialized for localhost/127.0.0.1:6379
+2025-11-13T10:36:06.722+08:00  INFO 24772 --- [java-common-features] [redisson-netty-2-20] o.r.c.pool.MasterConnectionPool          : 24 connections initialized for localhost/127.0.0.1:6379
+2025-11-13T10:36:06.978+08:00  WARN 24772 --- [java-common-features] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-11-13T10:36:07.457+08:00  INFO 24772 --- [java-common-features] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoint(s) beneath base path '/actuator'
+2025-11-13T10:36:07.523+08:00  INFO 24772 --- [java-common-features] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@357f1e59, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5c2900ed, org.springframework.security.web.context.SecurityContextHolderFilter@55df76ac, org.springframework.security.web.header.HeaderWriterFilter@79172834, org.springframework.web.filter.CorsFilter@762e3836, org.springframework.security.web.authentication.logout.LogoutFilter@14944a7b, com.enterprise.security.JwtAuthenticationFilter@1b513ce8, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@369ad283, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3bc079f1, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@75c85a8a, org.springframework.security.web.session.SessionManagementFilter@48dad22b, org.springframework.security.web.access.ExceptionTranslationFilter@70366fb5, org.springframework.security.web.access.intercept.AuthorizationFilter@28ec9c23]
+2025-11-13T10:36:08.193+08:00  INFO 24772 --- [java-common-features] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2025-11-13T10:36:08.205+08:00  INFO 24772 --- [java-common-features] [main] c.e.JavaCommonFeaturesApplication        : Started JavaCommonFeaturesApplication in 6.857 seconds (process running for 7.357)
+2025-11-13T10:36:08.649+08:00  INFO 24772 --- [java-common-features] [RMI TCP Connection(4)-172.20.10.4] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-13T10:36:08.649+08:00  INFO 24772 --- [java-common-features] [RMI TCP Connection(4)-172.20.10.4] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-11-13T10:36:08.651+08:00  INFO 24772 --- [java-common-features] [RMI TCP Connection(4)-172.20.10.4] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-11-13T10:36:09.700+08:00  WARN 24772 --- [java-common-features] [RMI TCP Connection(3)-172.20.10.4] o.s.b.actuate.mail.MailHealthIndicator   : Mail health check failed
+
+jakarta.mail.AuthenticationFailedException: 535 Login fail. Account is abnormal, service is not open, password is incorrect, login frequency limited, or system is busy. More information at https://help.mail.qq.com/detail/108/1023
+
+	at org.eclipse.angus.mail.smtp.SMTPTransport$Authenticator.authenticate(SMTPTransport.java:954) ~[jakarta.mail-2.0.2.jar:na]
+	at org.eclipse.angus.mail.smtp.SMTPTransport.authenticate(SMTPTransport.java:865) ~[jakarta.mail-2.0.2.jar:na]
+	at org.eclipse.angus.mail.smtp.SMTPTransport.protocolConnect(SMTPTransport.java:769) ~[jakarta.mail-2.0.2.jar:na]
+	at jakarta.mail.Service.connect(Service.java:345) ~[jakarta.mail-2.0.2.jar:na]
+	at org.springframework.mail.javamail.JavaMailSenderImpl.connectTransport(JavaMailSenderImpl.java:480) ~[spring-context-support-6.1.1.jar:6.1.1]
+	at org.springframework.mail.javamail.JavaMailSenderImpl.testConnection(JavaMailSenderImpl.java:360) ~[spring-context-support-6.1.1.jar:6.1.1]
+	at org.springframework.boot.actuate.mail.MailHealthIndicator.doHealthCheck(MailHealthIndicator.java:52) ~[spring-boot-actuator-3.2.0.jar:3.2.0]
+	at org.springframework.boot.actuate.health.AbstractHealthIndicator.health(AbstractHealthIndicator.java:82) ~[spring-boot-actuator-3.2.0.jar:3.2.0]
+	at org.springframework.boot.actuate.health.HealthIndicator.getHealth(HealthIndicator.java:37) ~[spring-boot-actuator-3.2.0.jar:3.2.0]
+	at org.springframework.boot.actuate.health.HealthEndpoint.getHealth(HealthEndpoint.java:82) ~[spring-boot-actuator-3.2.0.jar:3.2.0]
+	at org.springframework.boot.actuate.health.HealthEndpoint.getHealth(HealthEndpoint.java:41) ~[spring-boot-actuator-3.2.0.jar:3.2.0]
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getLoggedHealth(HealthEndpointSupport.java:172) ~[spring-boot-actuator-3.2.0.jar:3.2.0]
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getContribution(HealthEndpointSupport.java:145) ~[spring-boot-actuator-3.2.0.jar:3.2.0]
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getAggregateContribution(HealthEndpointSupport.java:156) ~[spring-boot-actuator-3.2.0.jar:3.2.0]
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getContribution(HealthEndpointSupport.java:141) ~[spring-boot-actuator-3.2.0.jar:3.2.0]
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getHealth(HealthEndpointSupport.java:110) ~[spring-boot-actuator-3.2.0.jar:3.2.0]
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getHealth(HealthEndpointSupport.java:81) ~[spring-boot-actuator-3.2.0.jar:3.2.0]
+	at org.springframework.boot.actuate.health.HealthEndpoint.health(HealthEndpoint.java:76) ~[spring-boot-actuator-3.2.0.jar:3.2.0]
+	at org.springframework.boot.actuate.health.HealthEndpoint.health(HealthEndpoint.java:66) ~[spring-boot-actuator-3.2.0.jar:3.2.0]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:281) ~[spring-core-6.1.1.jar:6.1.1]
+	at org.springframework.boot.actuate.endpoint.invoke.reflect.ReflectiveOperationInvoker.invoke(ReflectiveOperationInvoker.java:74) ~[spring-boot-actuator-3.2.0.jar:3.2.0]
+	at org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredOperation.invoke(AbstractDiscoveredOperation.java:60) ~[spring-boot-actuator-3.2.0.jar:3.2.0]
+	at org.springframework.boot.actuate.endpoint.jmx.EndpointMBean.invoke(EndpointMBean.java:124) ~[spring-boot-actuator-3.2.0.jar:3.2.0]
+	at org.springframework.boot.actuate.endpoint.jmx.EndpointMBean.invoke(EndpointMBean.java:97) ~[spring-boot-actuator-3.2.0.jar:3.2.0]
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.invoke(DefaultMBeanServerInterceptor.java:814) ~[na:na]
+	at java.management/com.sun.jmx.mbeanserver.JmxMBeanServer.invoke(JmxMBeanServer.java:802) ~[na:na]
+	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl.doOperation(RMIConnectionImpl.java:1472) ~[na:na]
+	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl$PrivilegedOperation.run(RMIConnectionImpl.java:1310) ~[na:na]
+	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl.doPrivilegedOperation(RMIConnectionImpl.java:1405) ~[na:na]
+	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl.invoke(RMIConnectionImpl.java:829) ~[na:na]
+	at java.base/jdk.internal.reflect.GeneratedMethodAccessor36.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at java.rmi/sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:360) ~[na:na]
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:200) ~[na:na]
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:197) ~[na:na]
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:712) ~[na:na]
+	at java.rmi/sun.rmi.transport.Transport.serviceCall(Transport.java:196) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:587) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:828) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(TCPTransport.java:705) ~[na:na]
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399) ~[na:na]
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:704) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:833) ~[na:na]
+
+2025-11-13T10:52:44.892+08:00  INFO 24772 --- [java-common-features] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-11-13T10:52:44.895+08:00  INFO 24772 --- [java-common-features] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-11-13T10:52:44.901+08:00  INFO 24772 --- [java-common-features] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

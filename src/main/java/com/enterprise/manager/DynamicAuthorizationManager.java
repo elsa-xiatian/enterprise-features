@@ -20,9 +20,10 @@ import java.util.function.Supplier;
 public class DynamicAuthorizationManager implements AuthorizationManager<RequestAuthorizationContext> {
     private final ResourceRoleService resourceRoleService;
 
-    // 核心校验逻辑（对应旧版的decide方法）
+    // 核心校验逻辑
     @Override
     public AuthorizationDecision check(Supplier<Authentication> authenticationSupplier, RequestAuthorizationContext context) {
+
         // 1. 获取当前请求的接口路径和请求方法
         HttpServletRequest request = context.getRequest();
         String requestUrl = request.getRequestURI();
