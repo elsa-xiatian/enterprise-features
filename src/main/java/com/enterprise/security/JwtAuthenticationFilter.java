@@ -11,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -40,6 +41,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 // 4. 加载用户信息
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
+                //优先判断是否被锁定
+                if(!userDetails.isEnabled()){
+                    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                    response.getWriter().write("{\"message\": \"账号已被禁用，请联系管理员解禁\"}");
+                    return;
+                }
+                if(!userDetails.isAccountNonLocked()){
+                    //说明用户被锁定
+                    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                    response.setContentType("application/json");
+                    response.getWriter().write("{\"message\": \"账号已被锁定，请联系管理员解锁\"}");
+                    return;
+                }
+
                 // 5. 创建认证对象并设置到上下文
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
@@ -47,8 +62,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
-        } catch (Exception ex) {
+        }catch (UsernameNotFoundException ex){
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("application/json");
+            response.getWriter().write("{\"message\": \"用户不存在\"}");
+            return;
+        }
+
+        catch (Exception ex) {
             log.error("无法设置用户认证: {}", ex.getMessage());
+            // 其他异常：返回500
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.setContentType("application/json");
+            response.getWriter().write("{\"message\": \"认证失败\"}");
+            return;
         }
 
         // 继续执行过滤器链

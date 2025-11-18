@@ -2,9 +2,13 @@ package com.enterprise.controller;
 
 
 import com.enterprise.common.Result;
+import com.enterprise.model.dto.LockUserDTO;
 import com.enterprise.model.dto.UserInfoResponse;
 import com.enterprise.model.dto.UserUpdateRequest;
+import com.enterprise.model.entity.User;
+import com.enterprise.repository.UserRepository;
 import com.enterprise.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -13,7 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.GrantedAuthority;
 
 
+import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -22,6 +28,7 @@ import java.util.stream.Collectors;
 public class UserController {
 
     private final UserService userService;
+    private final UserRepository userRepository;
 
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @GetMapping("/info")
@@ -54,4 +61,52 @@ public class UserController {
         userService.updateUserInfo(request);
         return Result.success("修改成功");
     }
+
+
+    @PostMapping("/lock")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public Result<String> LockUser(@RequestBody @Valid LockUserDTO lockUserDTO){
+       User user = userRepository.findById(lockUserDTO.getUserId())
+               .orElseThrow(() -> new RuntimeException("用户不存在"));
+
+       user.setLocked(true);
+       user.setLockedTime(LocalDateTime.now());
+       userRepository.save(user);
+       return Result.success("用户锁定成功");
+    }
+
+    @PostMapping("/unlock")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public Result<String> UnLockUser(@RequestBody @Valid LockUserDTO lockUserDTO){
+        User user = userRepository.findById(lockUserDTO.getUserId())
+                .orElseThrow(() -> new RuntimeException("用户不存在"));
+
+        user.setLocked(false);
+        user.setLoginFailedCount(0);
+        user.setLockedTime(null);
+        userRepository.save(user);
+        return Result.success("用户解锁成功");
+    }
+    @PostMapping("/disable")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public Result<String> DisableUser(@RequestBody @Valid LockUserDTO disableDTO){
+        User user = userRepository.findById(disableDTO.getUserId())
+                .orElseThrow(() -> new RuntimeException("用户不存在"));
+
+        user.setDisabled(true);
+        userRepository.save(user);
+        return Result.success("用户禁用成功");
+    }
+
+    @PostMapping("/disable")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public Result<String> UndisableUser(@RequestBody @Valid LockUserDTO undisableDTO){
+        User user = userRepository.findById(undisableDTO.getUserId())
+                .orElseThrow(() -> new RuntimeException("用户不存在"));
+        user.setDisabled(false);
+        userRepository.save(user);
+        return Result.success("用户解禁成功");
+    }
+
+
 }

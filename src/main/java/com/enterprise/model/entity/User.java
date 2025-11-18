@@ -46,4 +46,12 @@ public class User {
     @UpdateTimestamp
     private LocalDateTime updateTime; // 更新时间
 
+    private Boolean locked = false; // 0→false，1→true
+
+    private Integer loginFailedCount = 0; // 登录失败次数
+
+    private Boolean disabled = false;//账户是否被禁用
+
+    private LocalDateTime lockedTime; //记录账户锁定时间
+
 }

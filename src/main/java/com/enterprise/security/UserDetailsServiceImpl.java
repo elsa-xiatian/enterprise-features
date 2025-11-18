@@ -41,9 +41,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .username(user.getUsername())
                 .password(user.getPassword()) // 数据库中加密后的密码
                 .authorities(authority) // 传入用户角色（权限）
-                .disabled(user.getStatus() != 1)
+                .disabled(user.getDisabled())
                 .accountExpired(false)
-                .accountLocked(false)
+                .accountLocked(user.getLocked())
                 .credentialsExpired(false)
                 .build();
 

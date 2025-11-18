@@ -19,8 +19,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -60,6 +62,29 @@ public class AuthServiceImpl implements AuthService {
 
         User user = userRepository.findByUsername(loginRequest.getUsername())
                 .orElseThrow(() -> new RuntimeException("用户不存在"));
+
+        //优先检查是否被禁用
+
+        if(user.getDisabled()){
+            throw new RuntimeException("账号被禁用，无法使用");
+        }
+
+        if(user.getLocked()){
+            throw new RuntimeException("账户被锁定，无法登录");
+        }
+
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        if(!encoder.matches(loginRequest.getPassword(), user.getPassword())){
+            user.setLoginFailedCount(user.getLoginFailedCount()+1);
+            if(user.getLoginFailedCount() >= 5){
+                user.setLocked(true);
+                user.setLockedTime(LocalDateTime.now());
+            }
+            userRepository.save(user);
+            int trycount = 5-user.getLoginFailedCount();
+            throw new RuntimeException("密码错误，无法登录，剩余"+trycount+"次访问机会");
+        }
 
         if (user.getMfaEnabled() != null && user.getMfaEnabled() == 1) {
             // 3. 生成MFA临时令牌（UUID）
